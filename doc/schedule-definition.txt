@@ -1,0 +1,45 @@
+schedule gets a unique ID
+	*	no name given
+schedule can be marked as "shared"
+	*	shared schedule must be uniquely named
+	
+schedule cannot be deleted if being used (show list of processes using)
+if dependency AND schedule are defined, both must be satisfied before executing
+	*	copies of the same job can be used to execute the same "app" from a different job on a different schedule
+
+schedule "start-from" date will be either...
+		*	job last execution date (unless status is fail and reruns are depleted)
+	or
+		*	job definition "starts on"
+	
+schedule can be created based on the following definitions
+monthly definitions (default every 1 month)
+	*	can be set to execute every N months
+		*	execute every 2 months
+	*	can be set to execute on a set of months
+		*	execute every January, March, December
+weekly definitions  (default every 1 week)
+	*	must set a week starting on date (1-7)
+		*	defaults to sunday
+	*	can be set to execute every N weeks
+		*	execute every 2 weeks
+	*	can be set to execute on a set of weeks
+		*	keyword for "last" to run on last week of month
+daily definitions  (default every 1 days)
+	*	can be set to execute every N days
+		*	execute every 2 days
+	*	can be set to execute on a set of week days
+		*	execute every Monday, Wednesday, Friday
+	*	can be set to execute on a set of calendar days
+		*	keyword for "last" to run on last day of month if necessary since months last day can vary
+		*	execute on 1,10,15,20,last
+time definitions (default every 1 hr)
+	*	can be set to execute every N interval (1 minute is lowest)
+		*	every 1 hr, every 10 min
+	*	can be set to execute on a set of 24H times
+		*	execute at 8:30, 10:45, 13:30
+		
+additional definitions
+expire date/time (ice or hold options)
+expire after N runs (ice or hold options)
+terminate after N (d,h,m)
