@@ -1,0 +1,6 @@
+# ignore file for this project
+bin/
+obj/
+*.log
+*.zip
+*.suo
