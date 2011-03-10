@@ -72,5 +72,12 @@ namespace ServerSpecs.Steps
 			ScenarioContext.Current.Set(schedule, scheduleId);
 		}
 
+		[Given(@"the schedule with the id of '(.*)' runs at this list of days '(.*)'")]
+		public void i(string scheduleId, string days) {
+			var schedule = ScenarioContext.Current.Get<Schedule>(scheduleId);
+			schedule.DaySegment = new DayScheduleSegment { AssignedValue = days, ScheduleType = ScheduleDayType.List_Days };
+
+			ScenarioContext.Current.Set(schedule, scheduleId);
+		}
 	}
 }

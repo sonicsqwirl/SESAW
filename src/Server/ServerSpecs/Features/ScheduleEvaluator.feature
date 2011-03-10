@@ -76,3 +76,27 @@ Scenario: Determine the next execution of an every 2 day schedule that runs at a
 	And the schedule with the id of '1FF02F94-ED9C-43D4-B5DD-96C13C6C607A' runs at this list of times '02:00, 12:00, 18:00'
 	When I get the next execution date for the schedule with the id of '1FF02F94-ED9C-43D4-B5DD-96C13C6C607A'
 	Then I should have an execution date of '2011-03-09 12:00:00.000'
+	
+Scenario: Determine the next execution of list of days schedule that runs on schedule
+	Given I have last execute time of '2011-03-01 02:01:02.000'
+	And I have a schedule with the id of '1FF02F94-ED9C-43D4-B5DD-96C13C6C607A'
+	And the schedule with the id of '1FF02F94-ED9C-43D4-B5DD-96C13C6C607A' runs at this list of days '1,10,20,0'
+	And the schedule with the id of '1FF02F94-ED9C-43D4-B5DD-96C13C6C607A' runs at the specific time of '02:00:00'
+	When I get the next execution date for the schedule with the id of '1FF02F94-ED9C-43D4-B5DD-96C13C6C607A'
+	Then I should have an execution date of '2011-03-10 02:00:00.000'
+
+Scenario: Determine the next execution of list of days schedule that runs on schedule for the last day of the month
+	Given I have last execute time of '2011-03-31 02:01:02.000'
+	And I have a schedule with the id of '1FF02F94-ED9C-43D4-B5DD-96C13C6C607A'
+	And the schedule with the id of '1FF02F94-ED9C-43D4-B5DD-96C13C6C607A' runs at this list of days '1,10,20,0'
+	And the schedule with the id of '1FF02F94-ED9C-43D4-B5DD-96C13C6C607A' runs at the specific time of '02:00:00'
+	When I get the next execution date for the schedule with the id of '1FF02F94-ED9C-43D4-B5DD-96C13C6C607A'
+	Then I should have an execution date of '2011-04-01 02:00:00.000'
+
+Scenario: Determine the next execution of list of days schedule that runs on schedule and should run on the last day of the month
+	Given I have last execute time of '2011-03-20 02:01:02.000'
+	And I have a schedule with the id of '1FF02F94-ED9C-43D4-B5DD-96C13C6C607A'
+	And the schedule with the id of '1FF02F94-ED9C-43D4-B5DD-96C13C6C607A' runs at this list of days '1,10,20,0'
+	And the schedule with the id of '1FF02F94-ED9C-43D4-B5DD-96C13C6C607A' runs at the specific time of '02:00:00'
+	When I get the next execution date for the schedule with the id of '1FF02F94-ED9C-43D4-B5DD-96C13C6C607A'
+	Then I should have an execution date of '2011-03-31 02:00:00.000'

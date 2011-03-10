@@ -285,6 +285,88 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Determine the next execution of list of days schedule that runs on schedule")]
+        public virtual void DetermineTheNextExecutionOfListOfDaysScheduleThatRunsOnSchedule()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Determine the next execution of list of days schedule that runs on schedule", ((string[])(null)));
+#line 80
+this.ScenarioSetup(scenarioInfo);
+#line 81
+ testRunner.Given("I have last execute time of \'2011-03-01 02:01:02.000\'");
+#line 82
+ testRunner.And("I have a schedule with the id of \'1FF02F94-ED9C-43D4-B5DD-96C13C6C607A\'");
+#line 83
+ testRunner.And("the schedule with the id of \'1FF02F94-ED9C-43D4-B5DD-96C13C6C607A\' runs at this l" +
+                    "ist of days \'1,10,20,0\'");
+#line 84
+ testRunner.And("the schedule with the id of \'1FF02F94-ED9C-43D4-B5DD-96C13C6C607A\' runs at the sp" +
+                    "ecific time of \'02:00:00\'");
+#line 85
+ testRunner.When("I get the next execution date for the schedule with the id of \'1FF02F94-ED9C-43D4" +
+                    "-B5DD-96C13C6C607A\'");
+#line 86
+ testRunner.Then("I should have an execution date of \'2011-03-10 02:00:00.000\'");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Determine the next execution of list of days schedule that runs on schedule for t" +
+            "he last day of the month")]
+        public virtual void DetermineTheNextExecutionOfListOfDaysScheduleThatRunsOnScheduleForTheLastDayOfTheMonth()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Determine the next execution of list of days schedule that runs on schedule for t" +
+                    "he last day of the month", ((string[])(null)));
+#line 88
+this.ScenarioSetup(scenarioInfo);
+#line 89
+ testRunner.Given("I have last execute time of \'2011-03-31 02:01:02.000\'");
+#line 90
+ testRunner.And("I have a schedule with the id of \'1FF02F94-ED9C-43D4-B5DD-96C13C6C607A\'");
+#line 91
+ testRunner.And("the schedule with the id of \'1FF02F94-ED9C-43D4-B5DD-96C13C6C607A\' runs at this l" +
+                    "ist of days \'1,10,20,0\'");
+#line 92
+ testRunner.And("the schedule with the id of \'1FF02F94-ED9C-43D4-B5DD-96C13C6C607A\' runs at the sp" +
+                    "ecific time of \'02:00:00\'");
+#line 93
+ testRunner.When("I get the next execution date for the schedule with the id of \'1FF02F94-ED9C-43D4" +
+                    "-B5DD-96C13C6C607A\'");
+#line 94
+ testRunner.Then("I should have an execution date of \'2011-04-01 02:00:00.000\'");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Determine the next execution of list of days schedule that runs on schedule and s" +
+            "hould run on the last day of the month")]
+        public virtual void DetermineTheNextExecutionOfListOfDaysScheduleThatRunsOnScheduleAndShouldRunOnTheLastDayOfTheMonth()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Determine the next execution of list of days schedule that runs on schedule and s" +
+                    "hould run on the last day of the month", ((string[])(null)));
+#line 96
+this.ScenarioSetup(scenarioInfo);
+#line 97
+ testRunner.Given("I have last execute time of \'2011-03-20 02:01:02.000\'");
+#line 98
+ testRunner.And("I have a schedule with the id of \'1FF02F94-ED9C-43D4-B5DD-96C13C6C607A\'");
+#line 99
+ testRunner.And("the schedule with the id of \'1FF02F94-ED9C-43D4-B5DD-96C13C6C607A\' runs at this l" +
+                    "ist of days \'1,10,20,0\'");
+#line 100
+ testRunner.And("the schedule with the id of \'1FF02F94-ED9C-43D4-B5DD-96C13C6C607A\' runs at the sp" +
+                    "ecific time of \'02:00:00\'");
+#line 101
+ testRunner.When("I get the next execution date for the schedule with the id of \'1FF02F94-ED9C-43D4" +
+                    "-B5DD-96C13C6C607A\'");
+#line 102
+ testRunner.Then("I should have an execution date of \'2011-03-31 02:00:00.000\'");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion

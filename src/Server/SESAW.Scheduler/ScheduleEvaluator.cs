@@ -20,11 +20,10 @@ namespace SESAW.Scheduler
 				Console.WriteLine(prospectiveRunTime);
 				if (prospectiveRunTime < nextExecution) {
 					if (schedule.DaySegment != null) {
-						if (schedule.DaySegment.ScheduleType == ScheduleDayType.Consecutive) {
-							var days = AddDays(schedule);
+							var days = AddDays(schedule, lastExecutionTime);
 							Console.WriteLine(days);
 							prospectiveRunTime = prospectiveRunTime.AddDays(days);
-						}
+							Console.WriteLine(prospectiveRunTime);
 					}
 				}
 				nextExecution = prospectiveRunTime;
@@ -40,7 +39,7 @@ namespace SESAW.Scheduler
 				var validTime = times.Where(x => x > executionTime).OrderBy(x=>x.TotalSeconds);
 				
 				if (validTime == null || validTime.Count() == 0) {
-					var days = AddDays(schedule);
+					var days = AddDays(schedule, lastExecutionTime);
 					var time = times.OrderBy(x => x.TotalSeconds).FirstOrDefault();
 
 					Console.WriteLine(time);
@@ -81,15 +80,43 @@ namespace SESAW.Scheduler
 			return offset;
 		}
 
-		private int AddDays(Schedule segment) {
+
+		private int AddDays(Schedule segment, DateTime lastExecution) {
 			int offset = 0;
 			if (segment == null || segment.DaySegment == null) return offset;
 			if (segment.DaySegment.ScheduleType == ScheduleDayType.Consecutive) {
 				int.TryParse(segment.DaySegment.AssignedValue, out offset);
 
-			} else {
+			} else if(segment.DaySegment.ScheduleType == ScheduleDayType.List_Days) {
+				var daysList = segment.DaySegment.AssignedValue.Split(',')
+					.Select(x=>int.Parse(x)).ToList();
+				
+				if (daysList.Contains(0)) {
+					var lastDayMonth = new DateTime(lastExecution.Year, lastExecution.Month + 1, 1).AddDays(-1).Day;
+					daysList.Remove(0);
+					daysList.Add(lastDayMonth);
+				}
+				
+				var validDays = daysList.Where(x => x > lastExecution.Day);
+				Console.WriteLine(validDays.Count());
+				if (validDays == null || validDays.Count() == 0) {
+					// do next month
+					var targetDay = daysList.Min();
+					Console.WriteLine("target day " + targetDay);
 
+					var nextExecution = lastExecution.Date.AddMonths(1);
+					nextExecution = new DateTime(nextExecution.Year, nextExecution.Month, targetDay);
+					Console.WriteLine(nextExecution);
+					offset = nextExecution.Date.Subtract(lastExecution.Date).Days;
+				} else {
+					var targetDay = validDays.Where(x=>x>0).OrderBy(x => x).FirstOrDefault();
+					Console.WriteLine("target day " + targetDay);
+					var nextExecution = lastExecution.Date;
+					nextExecution = new DateTime(nextExecution.Year, nextExecution.Month, targetDay);
+					offset = nextExecution.Date.Subtract(lastExecution.Date).Days;
+				}
 			}
+
 			return offset;
 		}
 
