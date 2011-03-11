@@ -12,6 +12,7 @@ namespace ServerSpecs.Steps
 	[Binding]
 	public class ScheduleEvaluatorSteps
 	{
+		private IDictionary<int, DateTime> nextRuns = new Dictionary<int, DateTime>();
 		private DateTime lastExecuteTime = DateTime.MinValue;
 		private DateTime nextExecuteTime = DateTime.MinValue;
 
@@ -31,5 +32,22 @@ namespace ServerSpecs.Steps
 		public void h(DateTime desiredNextExecuteTime) {
 			nextExecuteTime.ShouldEqual(desiredNextExecuteTime);
 		}
+
+		[When(@"I get the next execution date for the next '(.*)' schedules with the id of '(.*)'")]
+		public void b(int runs, string scheduleId) {
+			var schedule = ScenarioContext.Current.Get<Schedule>(scheduleId);
+
+			for (int i = 0; i < runs; i++) {
+				nextExecuteTime = new ScheduleEvaluator().GetNextExecutionTime(schedule, lastExecuteTime);
+				nextRuns.Add(i, nextExecuteTime);
+				lastExecuteTime = nextExecuteTime;
+			}
+		}
+
+		[Then(@"for run number '(.*)' I should have an execution date of '(.*)'")]
+		public void c(int run, DateTime desiredDate) {
+			nextRuns[run].ShouldEqual(desiredDate);
+		}
+
 	}
 }

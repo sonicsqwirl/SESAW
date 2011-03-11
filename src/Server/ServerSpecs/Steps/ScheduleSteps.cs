@@ -35,7 +35,7 @@ namespace ServerSpecs.Steps
 		[Given(@"the schedule with the id of '(.*)' runs every '(.*)' week starting on '(.*)'")]
 		public void d(string scheduleId, string weeks, int startDate) {
 			var schedule = ScenarioContext.Current.Get<Schedule>(scheduleId);
-			schedule.WeekSegment = new WeekScheduleSegment { AssignedValue = weeks, ScheduleType = ScheduleWeekType.Consecutive, AssignedValueQualifier=startDate };
+			schedule.WeekSegment = new WeekScheduleSegment { AssignedValue = weeks, ScheduleType = ScheduleWeekType.Consecutive, AssignedValueQualifier = startDate };
 
 			ScenarioContext.Current.Set(schedule, scheduleId);
 		}
@@ -51,7 +51,7 @@ namespace ServerSpecs.Steps
 		[Given(@"the schedule with the id of '(.*)' runs every '(.*)' '(.*)'")]
 		public void f(string scheduleId, string hours, string qualifier) {
 			var schedule = ScenarioContext.Current.Get<Schedule>(scheduleId);
-			schedule.TimeSegment = new TimeScheduleSegment { AssignedValue = hours, ScheduleType = ScheduleTimeType.Consecutive, AssignedValueQualifier=qualifier };
+			schedule.TimeSegment = new TimeScheduleSegment { AssignedValue = hours, ScheduleType = ScheduleTimeType.Consecutive, AssignedValueQualifier = qualifier };
 
 			ScenarioContext.Current.Set(schedule, scheduleId);
 		}
@@ -59,7 +59,7 @@ namespace ServerSpecs.Steps
 		[Given(@"the schedule with the id of '(.*)' runs at the specific time of '(.*)'")]
 		public void g(string scheduleId, string time) {
 			var schedule = ScenarioContext.Current.Get<Schedule>(scheduleId);
-			schedule.TimeSegment = new TimeScheduleSegment { AssignedValue = time, ScheduleType = ScheduleTimeType.Single};
+			schedule.TimeSegment = new TimeScheduleSegment { AssignedValue = time, ScheduleType = ScheduleTimeType.Single };
 
 			ScenarioContext.Current.Set(schedule, scheduleId);
 		}
@@ -79,5 +79,22 @@ namespace ServerSpecs.Steps
 
 			ScenarioContext.Current.Set(schedule, scheduleId);
 		}
+
+		[Given(@"the schedule with the id of '(.*)' runs at this list of weekdays '(.*)' with a weekly interval of '(.*)'")]
+		public void j(string scheduleId, string days, int interval) {
+			var schedule = ScenarioContext.Current.Get<Schedule>(scheduleId);
+			schedule.DaySegment = new DayScheduleSegment { AssignedValue = days, ScheduleType = ScheduleDayType.List_Weekdays, Interval = interval };
+
+			ScenarioContext.Current.Set(schedule, scheduleId);
+		}
+
+		[Given(@"the schedule with the id of '(.*)' runs at this list of months '(.*)'")]
+		public void k(string scheduleId, string months) {
+			var schedule = ScenarioContext.Current.Get<Schedule>(scheduleId);
+			schedule.MonthSegment = new MonthScheduleSegment { AssignedValue = months, ScheduleType = ScheduleMonthType.List_Months };
+
+			ScenarioContext.Current.Set(schedule, scheduleId);
+		}
+
 	}
 }

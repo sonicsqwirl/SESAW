@@ -58,6 +58,7 @@ namespace SESAW.Domain
 	{
 		public ScheduleDayType ScheduleType { get; set; }
 		public string AssignedValue { get; set; }
+		public int Interval { get; set; }
 	}
 
 	public class TimeScheduleSegment
